@@ -46,7 +46,7 @@ class Search_activity : AppCompatActivity (){
                 .document(serial)
                 .collection("History")
                 .whereEqualTo("DeviceID",serial)
-                .orderBy("TimeS", Query.Direction.DESCENDING)
+                .orderBy("TimeStamp", Query.Direction.DESCENDING)
 
                 .addSnapshotListener(object: EventListener<QuerySnapshot> {
 
@@ -56,9 +56,6 @@ class Search_activity : AppCompatActivity (){
                             for (doc in p0!!.documents) {
                                 var devicet = doc.toObject(SearchText::class.java)
                                 arrofDevices!!.add(devicet)
-
-
-
                                 adapter = SearchAdapter(arrofDevices, applicationContext)
                                 var layout_manager = LinearLayoutManager(applicationContext)
                                 layout_manager.reverseLayout = false

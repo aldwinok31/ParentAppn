@@ -17,7 +17,7 @@ class SearchAdapter(list: ArrayList<SearchText>, context: Context) : RecyclerVie
     private var v: View?=null
     override fun onBindViewHolder(holder: SearchAdapterHolder?, position: Int) {
         holder!!.searchInputText.setText(data[position].SearchInput)
-        holder!!.timerstamper.setText(data[position].TimeS.time.toString())
+        holder!!.timerstamper.setText(data[position].TimeStamp.time.toString())
         holder!!.ccard.setOnLongClickListener(object :View.OnLongClickListener{
             override fun onLongClick(p0: View?): Boolean {
 
