@@ -19,9 +19,10 @@ class SearchAdapter(list: ArrayList<SearchText>, context: Context) : RecyclerVie
     private var v: View?=null
     override fun onBindViewHolder(holder: SearchAdapterHolder?, position: Int) {
         holder!!.searchInputText.setText(data[position].SearchInput)
+var d = data[position].TimeStamp
+d.time
 
-
-       if(data[position].TimeStamp.time > Calendar.getInstance().time.date){
+       if(true){
            val dateToFormat = data[position].TimeStamp.time
            val dateFormatExpression = SimpleDateFormat("hh:mm:ss a")
            val formattedDate = dateFormatExpression.format(dateToFormat)

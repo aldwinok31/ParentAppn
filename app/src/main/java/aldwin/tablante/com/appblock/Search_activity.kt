@@ -47,7 +47,7 @@ class Search_activity : AppCompatActivity (){
                 .collection("History")
                 .whereEqualTo("DeviceID",serial)
                 .orderBy("DateStamp",Query.Direction.DESCENDING)
-                
+
 
                 .addSnapshotListener(object: EventListener<QuerySnapshot> {
 
