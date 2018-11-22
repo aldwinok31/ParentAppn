@@ -46,7 +46,7 @@ class Search_activity : AppCompatActivity (){
                 .document(serial)
                 .collection("History")
                 .whereEqualTo("DeviceID",serial)
-                .orderBy("DateStamp",Query.Direction.DESCENDING)
+                .orderBy("DateStamp",Query.Direction.ASCENDING)
 
 
                 .addSnapshotListener(object: EventListener<QuerySnapshot> {
@@ -58,16 +58,15 @@ class Search_activity : AppCompatActivity (){
                                 var devicet = doc.toObject(SearchText::class.java)
                                 arrofDevices!!.add(devicet)
                                 adapter = SearchAdapter(arrofDevices, applicationContext)
-                                var layout_manager = LinearLayoutManager(applicationContext)
-                                layout_manager.stackFromEnd = true
-                                layout_manager.reverseLayout = false
-                                searchRview.layoutManager = layout_manager
-                                searchRview.setHasFixedSize(true)
-                                searchRview.adapter = adapter
-                                searchRview.adapter.notifyDataSetChanged()
-                                searchRview.scrollToPosition(adapter!!.itemCount -1)
-
                             }
+                            adapter = SearchAdapter(arrofDevices, applicationContext)
+                            var layout_manager = LinearLayoutManager(applicationContext)
+                            layout_manager.stackFromEnd = false
+                            layout_manager.reverseLayout = false
+                            searchRview.layoutManager = layout_manager
+                            searchRview.setHasFixedSize(true)
+                            searchRview.adapter = adapter
+                            searchRview.adapter.notifyDataSetChanged()
                         }
 
                         catch (e:KotlinNullPointerException){
@@ -99,6 +98,17 @@ class Search_activity : AppCompatActivity (){
                     .document(serial).collection("History").get().addOnSuccessListener {t->
                       t.forEach { batch.delete(it.reference) }
                         batch.commit()
+                        if(!arrofDevices.isEmpty()){
+                            arrofDevices.clear()
+                            adapter = SearchAdapter(arrofDevices, applicationContext)
+                            var layout_manager = LinearLayoutManager(applicationContext)
+                            layout_manager.stackFromEnd = false
+                            layout_manager.reverseLayout = false
+                            searchRview.layoutManager = layout_manager
+                            searchRview.setHasFixedSize(true)
+                            searchRview.adapter = adapter
+                            searchRview.adapter.notifyDataSetChanged()
+                        }
                     }
 
 

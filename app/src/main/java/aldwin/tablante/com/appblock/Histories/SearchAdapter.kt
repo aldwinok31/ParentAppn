@@ -21,10 +21,11 @@ class SearchAdapter(list: ArrayList<SearchText>, context: Context) : RecyclerVie
         holder!!.searchInputText.setText(data[position].SearchInput)
 var d = data[position].TimeStamp
 d.time
-
-       if(true){
+        val cal = Calendar.getInstance()
+        cal.add(Calendar.DATE, -1)
+        if(cal.time < d){
            val dateToFormat = data[position].TimeStamp.time
-           val dateFormatExpression = SimpleDateFormat("hh:mm:ss a")
+           val dateFormatExpression = SimpleDateFormat("h:mm:ss a")
            val formattedDate = dateFormatExpression.format(dateToFormat)
            holder!!.timerstamper.setText(formattedDate.toString())
 
