@@ -11,13 +11,34 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import java.text.SimpleDateFormat
+import java.util.*
 
 class SearchAdapter(list: ArrayList<SearchText>, context: Context) : RecyclerView.Adapter<SearchAdapter.SearchAdapterHolder>() {
     private var data = list
     private var v: View?=null
     override fun onBindViewHolder(holder: SearchAdapterHolder?, position: Int) {
         holder!!.searchInputText.setText(data[position].SearchInput)
-        holder!!.timerstamper.setText(data[position].TimeStamp.time.toString())
+
+
+       if(data[position].TimeStamp.time > Calendar.getInstance().time.date){
+           val dateToFormat = data[position].TimeStamp.time
+           val dateFormatExpression = SimpleDateFormat("hh:mm:ss a")
+           val formattedDate = dateFormatExpression.format(dateToFormat)
+           holder!!.timerstamper.setText(formattedDate.toString())
+
+       }
+        else{
+
+           val dateToFormat = data[position].TimeStamp.time
+           val dateFormatExpression = SimpleDateFormat("dd/mm/yyyy hh:mm:ss a")
+           val formattedDate = dateFormatExpression.format(dateToFormat)
+           holder!!.timerstamper.setText(formattedDate.toString())
+
+       }
+
+
+
         holder!!.ccard.setOnLongClickListener(object :View.OnLongClickListener{
             override fun onLongClick(p0: View?): Boolean {
 

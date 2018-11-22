@@ -46,7 +46,8 @@ class Search_activity : AppCompatActivity (){
                 .document(serial)
                 .collection("History")
                 .whereEqualTo("DeviceID",serial)
-                .orderBy("TimeStamp", Query.Direction.DESCENDING)
+                .orderBy("DateStamp",Query.Direction.DESCENDING)
+                
 
                 .addSnapshotListener(object: EventListener<QuerySnapshot> {
 
@@ -58,10 +59,13 @@ class Search_activity : AppCompatActivity (){
                                 arrofDevices!!.add(devicet)
                                 adapter = SearchAdapter(arrofDevices, applicationContext)
                                 var layout_manager = LinearLayoutManager(applicationContext)
+                                layout_manager.stackFromEnd = true
                                 layout_manager.reverseLayout = false
                                 searchRview.layoutManager = layout_manager
                                 searchRview.setHasFixedSize(true)
                                 searchRview.adapter = adapter
+                                searchRview.adapter.notifyDataSetChanged()
+                                searchRview.scrollToPosition(adapter!!.itemCount -1)
 
                             }
                         }
