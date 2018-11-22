@@ -52,21 +52,29 @@ class Search_activity : AppCompatActivity (){
 
                     override fun onEvent(p0: QuerySnapshot?, p1: FirebaseFirestoreException?) {
                         arrofDevices!!.clear()
-                        for(doc in p0!!.documents){
-                            var devicet = doc.toObject(SearchText::class.java)
-                            arrofDevices!!.add(devicet)
+                        try {
+                            for (doc in p0!!.documents) {
+                                var devicet = doc.toObject(SearchText::class.java)
+                                arrofDevices!!.add(devicet)
 
+
+
+                                adapter = SearchAdapter(arrofDevices, applicationContext)
+                                var layout_manager = LinearLayoutManager(applicationContext)
+                                layout_manager.reverseLayout = false
+                                searchRview.layoutManager = layout_manager
+                                searchRview.setHasFixedSize(true)
+                                searchRview.adapter = adapter
+
+                            }
+                        }
+
+                        catch (e:KotlinNullPointerException){
+                            e.printStackTrace()
+                            Toast.makeText(applicationContext,"No Available Searches",Toast.LENGTH_LONG).show()
 
                         }
-                        adapter = SearchAdapter(arrofDevices, applicationContext)
-                        var layout_manager = LinearLayoutManager(applicationContext)
-                        layout_manager.reverseLayout = false
-                        searchRview.layoutManager = layout_manager
-                        searchRview.setHasFixedSize(true)
-                        searchRview.adapter = adapter
-
                     }
-
                 })
 
 
